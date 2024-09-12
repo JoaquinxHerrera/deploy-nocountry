@@ -15,9 +15,9 @@ const AppRoutes = () => {
   return (
     <>
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/signup' element={<AuthenticationGuard  Component={SignUp} />} />
-        <Route path='/signin'  element={<AuthenticationGuard  Component={SignIn} />} />
+        {/* <Route path='/' element={<Home />} /> */}
+        <Route path='/' element={<SignUp/>} />
+        <Route path='/signin'  element={<SignIn/>} />
         <Route path='/home'  element={<AuthenticationGuard  Component={Home} />} />
         <Route path='/home1'  element={<AuthenticationGuard  Component={HomeSinCita} />} />
         <Route path='/consulta/:idPaciente' element={<CitaSimple />} /> 

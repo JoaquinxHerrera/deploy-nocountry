@@ -2,7 +2,7 @@ import axios from "axios"
 
 const BACKEND_ENDPOINT = import.meta.env.VITE_BACKEND_URL
 
-export const createAppointment = async (cita) => {
+export const createAppointment = async (cita, token) => {
     try{
         const response = await axios.post(`${BACKEND_ENDPOINT}/consultas`, cita);
         return response.data;
