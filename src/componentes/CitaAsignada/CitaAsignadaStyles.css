@@ -1,0 +1,22 @@
+.container {
+  
+    border-radius: 4px; /* Reducido de 8px para un aspecto más rectangular */
+    max-width: 300px; /* Reducido de 400px */
+    /* max-height: 230px;  *//* Reducido de 400px */
+    margin: 9px auto; /* Reducido de 20px */
+/*     background-color: #f9f9f9; */
+  }
+  
+  
+  
+  .card-title {
+    font-size: 16px; /* Reducido de 24px */
+    margin-bottom: 5px; /* Reducido de 10px */
+    color: #5f84a2; 
+  }
+  
+  .card-text {
+    font-size: 12px; /* Reducido de 18px */
+    margin: 1px ; 
+  }
+  

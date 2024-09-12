@@ -1,0 +1,22 @@
+.date{
+    background-color: var(--main-color-light-gray);
+    padding: 1em
+}
+
+.homeDr{
+    color: var(--main-color-blue);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-body-1);
+    line-height: 10px;
+}
+
+.homeTime{
+    line-height: 10px;
+}
+
+.homeCircleDate{
+    background-color: white;
+    border-radius: 50%;
+    padding: 15px;
+    
+}
