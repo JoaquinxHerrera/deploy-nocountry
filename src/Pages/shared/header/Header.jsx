@@ -5,6 +5,7 @@ import '../header/HeaderStyles.css'
 import {NavLink, useLocation, useNavigate} from 'react-router-dom'
 import { FaArrowLeft } from 'react-icons/fa'
 import { Container, Nav, Navbar, NavDropdown, Offcanvas } from 'react-bootstrap'
+import LogoutButton from '../../../componentes/auth0/LogoutButton'
 
 const Header = () => {
   const location = useLocation();
@@ -22,37 +23,7 @@ const Header = () => {
   }
 
   return (
-    // <div className='d-flex justify-content-between align-items-center w-100 p-3'>
-    //   {isHomePage ? (
-    //    <div className='d-flex justify-content-center align-items-center'>
-    //      <img src={Hand} alt="Mano saludando en header" className='me-2 mb-2 headerHand'/>
-    //      <p className='header mb-0 '>Hola Julia!</p>
-    //    </div>
-    //   ) : (
-    //     <NavLink to='/home'>
-    //       <FaArrowLeft size={30} color='#432C81'/>
-    //     </NavLink>
-    //   )}
-    //    <div className='profile-container' tabIndex={0} onBlur={closeMenu}>
-    //     <img 
-    //       src={ProfileImg} 
-    //       alt="Profile picture" 
-    //       className='profilePicture'
-    //       onClick={toggleMenu}
-    //     />
-
-    //     {/* {isMenuOpen && ( */}
-    //       <div className='dropdown-menu'>
-    //         <NavLink to="/profile" className="dropdown-item">Mi perfil</NavLink>
-    //         <NavLink to="/settings" className="dropdown-item">Configuración</NavLink>
-    //         <NavLink to="/logout" className="dropdown-item">Cerrar sesión</NavLink>
-
-    //       </div>
-    //     {/* )} */}
-
-    //    </div>
-    // </div>
-    <>
+       <>
       {[false].map((expand) => (
         <Navbar key={expand} expand={expand}>
           <Container fluid>
