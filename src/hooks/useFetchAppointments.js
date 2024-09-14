@@ -20,7 +20,7 @@ const useFetchAppointments = (idPaciente) => {
                 });
                 console.log('token obtenido:', token)
                 const Appointmentsdata = await fetchAppointments(1, token);
-                const medicosData = await getMedicos();
+                const medicosData = await getMedicos(token);
 
                 const AppointmentsAndMedicos = Appointmentsdata.map(appointment => {
                     const doctor = medicosData.find(medico => medico.id === appointment.idMedico);
