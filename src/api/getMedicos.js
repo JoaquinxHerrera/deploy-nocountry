@@ -1,13 +1,17 @@
 import axios from "axios";
 
-export const getMedicos = async () => {
+export const getMedicos = async (token) => {
     try {
         let allMedicos = [];
         let page = 0;
         let totalPages = 1;
         
         while (page < totalPages) {
-            const response = await axios.get(`/api/medicos/medicos?page=${page}`);
+            const response = await axios.get(`/api/medicos/medicos?page=${page}`,{
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
 
             // Imprimir toda la respuesta para depurar
             console.log("Respuesta del servidor:", response);

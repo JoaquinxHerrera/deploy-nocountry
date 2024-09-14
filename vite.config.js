@@ -19,7 +19,7 @@ export default defineConfig({
       '/api': {
         target: 'https://saludvital-production.up.railway.app',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''), // Elimina el prefijo /api al hacer la solicitud al backend
+        // rewrite: (path) => path.replace(/^\/api/, ''), // Elimina el prefijo /api al hacer la solicitud al backend
       }
     }
   }
