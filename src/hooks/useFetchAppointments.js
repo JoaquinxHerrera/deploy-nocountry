@@ -1,11 +1,11 @@
-import { useAuth0 } from '@auth0/auth0-react';
+// import { useAuth0 } from '@auth0/auth0-react';
 import { useState, useEffect } from 'react';
 import { fetchAppointments } from '../api/fetchAppointment';
 import { getMedicos } from '../api/getMedicos';
 
 // eslint-disable-next-line no-unused-vars
 const useFetchAppointments = (idPaciente) => {
-    const {getAccessTokenSilently} = useAuth0();
+    // const {getAccessTokenSilently} = useAuth0();
     const [appointments, setAppointments] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -13,14 +13,14 @@ const useFetchAppointments = (idPaciente) => {
     useEffect(() => {
         const fetchData = async () => {
             try{
-                const token = await getAccessTokenSilently({
-                    authorizationParams: {
-                        audience: import.meta.env.VITE_AUTH0_AUDIENCE,
-                    },
-                });
-                console.log('token obtenido:', token)
-                const Appointmentsdata = await fetchAppointments(1, token);
-                const medicosData = await getMedicos(token);
+                // const token = await getAccessTokenSilently({
+                //     authorizationParams: {
+                //         audience: import.meta.env.VITE_AUTH0_AUDIENCE,
+                //     },
+                // });
+                // console.log('token obtenido:', token)
+                const Appointmentsdata = await fetchAppointments(1);
+                const medicosData = await getMedicos();
 
                 const AppointmentsAndMedicos = Appointmentsdata.map(appointment => {
                     const doctor = medicosData.find(medico => medico.id === appointment.idMedico);
@@ -41,7 +41,7 @@ const useFetchAppointments = (idPaciente) => {
         };
 
        fetchData();
-    }, [getAccessTokenSilently]);
+    }, []);
 
     return { appointments, loading, error}
 

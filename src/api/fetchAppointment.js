@@ -2,13 +2,9 @@ import axios from "axios";
 
 // const BACKEND_ENDPOINT = import.meta.env.VITE_BACKEND_URL;
 
-export const fetchAppointments = async (idPaciente, token) => {
+export const fetchAppointments = async (idPaciente) => {
     try {
-        const response = await axios.get(`/api/consultas/${idPaciente}`,{
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
+        const response = await axios.get(`/api/consultas/${idPaciente}`);
         return response.data.content;
     } catch (error) {
         if (error.response) {
