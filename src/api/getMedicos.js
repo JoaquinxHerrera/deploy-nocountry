@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BACKEND_ENDPOINT = import.meta.env.VITE_BACKEND_URL;
+// const BACKEND_ENDPOINT = import.meta.env.VITE_BACKEND_URL;
 
 export const getMedicos = async () => {
     try {
@@ -8,7 +8,7 @@ export const getMedicos = async () => {
         let page = 0;
         let totalPages = 1; 
         while (page < totalPages) {
-            const response = await axios.get(`${BACKEND_ENDPOINT}/medicos/medicos?page=${page}`);
+            const response = await axios.get(`/api/medicos/medicos?page=${page}`);
             const { content, totalPages: pages } = response.data;
        
             if (Array.isArray(content)) {
