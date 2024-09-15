@@ -1,19 +1,15 @@
 import axios from "axios";
 
-const BACKEND_ENDPOINT = import.meta.env.VITE_BACKEND_URL
+// const BACKEND_ENDPOINT = import.meta.env.VITE_BACKEND_URL
 
-export const getMedicos = async (token) => {
+export const getMedicos = async () => {
     try {
         let allMedicos = [];
         let page = 0;
         let totalPages = 1;
         
         while (page < totalPages) {
-            const response = await axios.get(`${BACKEND_ENDPOINT}/medicos/medicos?page=${page}`,{
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            const response = await axios.get(`/api/medicos/medicos?page=${page}`);
 
             if (response.data && response.data.content && response.data.totalPages !== undefined) {
                 const { content, totalPages: pages } = response.data;
