@@ -31,7 +31,7 @@ const useFetchAppointments = (idPaciente) => {
                     };
                 })
                 setAppointments(AppointmentsAndMedicos);
-                console.log(AppointmentsAndMedicos)
+                console.log('consultas agendadas', AppointmentsAndMedicos)
             } catch(error){
                 console.log(error)
                 setError(error.message);

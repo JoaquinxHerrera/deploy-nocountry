@@ -1,0 +1,8 @@
+.datePicker{
+    width: 155%;
+}
+
+.detalles{
+    color: var(--main-color-purple);
+    font-weight: var(--font-weight-medium);
+}

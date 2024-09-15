@@ -1,5 +1,7 @@
 import axios from "axios";
 
+// const BACKEND_ENDPOINT = import.meta.env.VITE_BACKEND_URL
+
 export const getMedicos = async (token) => {
     try {
         let allMedicos = [];
@@ -12,9 +14,6 @@ export const getMedicos = async (token) => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-
-            // Imprimir toda la respuesta para depurar
-            console.log("Respuesta del servidor:", response);
 
             if (response.data && response.data.content && response.data.totalPages !== undefined) {
                 const { content, totalPages: pages } = response.data;

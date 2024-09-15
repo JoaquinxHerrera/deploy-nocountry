@@ -5,6 +5,7 @@ import axios from "axios";
 export const fetchAppointments = async (idPaciente) => {
     try {
         const response = await axios.get(`/api/consultas/${idPaciente}`);
+        console.log('Respuesta appointments:', response.data.content)
         return response.data.content;
     } catch (error) {
         if (error.response) {

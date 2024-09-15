@@ -7,6 +7,8 @@ import BottomNavbar from '../shared/BottomNavbar/BottomNavbar';
 import useCreateAppointment from '../../hooks/useCreateAppointment';
 import Swal from 'sweetalert2';
 import { fetchAppointments } from '../../api/fetchAppointment';
+import Header from '../shared/header/Header';
+import './CitaSimpleStyles.css'
 
 const CitaSimple = () => {
   const { appointmentState, medicos, especialidades, errors, handleChange, handleSubmit } = useCreateAppointment();
@@ -76,13 +78,14 @@ const CitaSimple = () => {
   };
 
   return (
-    <div className="full-screen-container  d-flex flex-column">
-      <Container fluid className="d-flex justify-content-center align-items-center">
-        <Row className="w-100 justify-content-center">
+    <div className="vh-100 justify-content-between d-flex flex-column ">
+      <Header/>
+      <Container className="d-flex justify-content-center">
+        <Row className="w-100 ">
           <Col xs={12} md={8} lg={6} className="p-4">
-            <h2 className="text-center">Detalles de Cita</h2>
+            <h2 className="text-center mb-4 detalles">Detalles de Cita</h2>
             <Form className='mb-5' onSubmit={(e) => e.preventDefault()}>
-              <Form.Group controlId="formSpecialty">
+              <Form.Group className='mb-2' controlId="formSpecialty">
                 <Form.Label>Especialidad</Form.Label>
                 <Form.Control as="select" name="especialidad" value={appointmentState.especialidad} onChange={handleChange}>
                   <option>Seleccionar Especialidad</option>
@@ -93,7 +96,7 @@ const CitaSimple = () => {
                 {errors.especialidad && <div className="text-danger">{errors.especialidad}</div>}
               </Form.Group>
 
-              <Form.Group controlId="formDoctor">
+              <Form.Group className='mb-2' controlId="formDoctor">
                 <Form.Label>Doctor</Form.Label>
                 <Form.Control as="select" name="idMedico" value={appointmentState.idMedico} onChange={handleChange}>
                   <option>Seleccionar Doctor</option>
@@ -104,19 +107,19 @@ const CitaSimple = () => {
                 {errors.idMedico && <div className="text-danger">{errors.idMedico}</div>}
               </Form.Group>
 
-              <Form.Group controlId="formDate" className='col-sm-3'>
-                <Form.Label>Fecha</Form.Label>
+              <Form.Group controlId="formDate" className='mb-2'>
+                <Form.Label>Fecha</Form.Label> <br />
                 <DatePicker
                   selected={selectedDate}
                   onChange={(date) => setSelectedDate(date)}
                   dateFormat="dd/MM/yyyy"
-                  className="form-control"
+                  className="form-control datePicker"
                   excludeDates={excludedDates}
                 />
                 {errors.fecha && <div className="text-danger">{errors.fecha}</div>}
               </Form.Group>
 
-              <Form.Group controlId="formTime">
+              <Form.Group className='mb-2' controlId="formTime">
                 <Form.Label>Hora</Form.Label>
                 <Form.Control as="select" value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}>
                   <option>Seleccionar Hora</option>

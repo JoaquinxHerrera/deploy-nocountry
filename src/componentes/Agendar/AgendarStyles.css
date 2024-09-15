@@ -40,7 +40,7 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Estilo para el contenedor completo */
+
 .full-screen-container {
   width: 100vw; /* Ocupa todo el ancho de la vista */
   height: 100vh; /* Ocupa toda la altura de la vista */

@@ -8,6 +8,7 @@ import useFetchAppointments from '../../hooks/useFetchAppointments';
 import Appointment from '../Appointment/Appointment';
 import homeImg from '../../assets/img/Illustration.png';
 import HomeBtnLines from '../../assets/icons/HomeBtnLines.png'
+import Spinner from 'react-bootstrap/Spinner';
 
 const AgendarCon = () => {
   const {appointments, loading, error} = useFetchAppointments();
@@ -39,13 +40,13 @@ const AgendarCon = () => {
                 ) : (
                   <>
                     <p className='header position-sticky top-0 bg-white z-index-1'>Proximas citas</p>
-                    <div className='flex-grow-1 overflow-auto'>
-                      {loading && <p>Cargando citas...</p>}
+                    <div className='flex-grow-1 overflow-auto d-flex justify-content-center'>
+                      {loading && <Spinner animation="border" variant="warning" role="status"/>}
                       {!loading && !error && appointments.map((appointment) => (
                         <Appointment
                           key={appointment.id}
                           title={appointment.especialidad}
-                          doctor={`Dr. ${appointment.doctorName}`} // Ajusta esto si `idMedico` es el nombre del doctor
+                          doctor={`Dr. ${appointment.doctorName}`} 
                           date={formatDate(appointment.fecha)}
                           time={new Date(appointment.fecha).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                         />
