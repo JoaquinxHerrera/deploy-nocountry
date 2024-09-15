@@ -40,7 +40,7 @@ const AgendarCon = () => {
                 ) : (
                   <>
                     <p className='header position-sticky top-0 bg-white z-index-1'>Proximas citas</p>
-                    <div className='flex-grow-1 overflow-auto d-flex justify-content-center'>
+                    <div className='flex-grow-1 overflow-auto d-flex flex-column align-items-center'>
                       {loading && <Spinner animation="border" variant="warning" role="status"/>}
                       {!loading && !error && appointments.map((appointment) => (
                         <Appointment

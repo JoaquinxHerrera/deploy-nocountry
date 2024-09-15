@@ -58,7 +58,6 @@ const useCreateAppointment = () =>{
     };
 
     const handleSubmit = async (cita) => {
-        // e.preventDefault();
         const formErrors = validate();
         if(Object.keys(formErrors).length > 0){
             setErrors(formErrors)
