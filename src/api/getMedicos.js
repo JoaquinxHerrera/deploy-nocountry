@@ -1,6 +1,6 @@
 import axios from "axios";
 
-// const BACKEND_ENDPOINT = import.meta.env.VITE_BACKEND_URL
+const BACKEND_ENDPOINT = import.meta.env.VITE_BACKEND_URL
 
 export const getMedicos = async (token) => {
     try {
@@ -9,7 +9,7 @@ export const getMedicos = async (token) => {
         let totalPages = 1;
         
         while (page < totalPages) {
-            const response = await axios.get(`/api/medicos/medicos?page=${page}`,{
+            const response = await axios.get(`${BACKEND_ENDPOINT}/medicos/medicos?page=${page}`,{
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
