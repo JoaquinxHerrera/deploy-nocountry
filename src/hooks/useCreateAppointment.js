@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { createAppointment } from "../api/createAppointment";
 import { getEspecialidades } from "../api/getEspecialidades";
@@ -20,6 +21,7 @@ const useCreateAppointment = () =>{
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -42,23 +44,31 @@ const useCreateAppointment = () =>{
 
     const handleChange = (e) => {
         const {name, value} = e.target;
-        setAppointmentState((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
+        if(name === 'especialidad'){
+            setAppointmentState((prevState)=>({
+                ...prevState,
+                [name]: value,
+                idMedico: '',
+            }));
+        } else {
+            setAppointmentState((prevState) => ({
+                ...prevState,
+                [name]: value,
+            }));
+        }
     };
 
     const validate = () => {
         const newErrors = {};
-        // if(!appointmentState.idMedico) newErrors.idMedico = "Es necesario seleccionar un médico";
+        if(!appointmentState.idMedico) newErrors.idMedico = "Es necesario seleccionar un médico";
         if(!appointmentState.especialidad) newErrors.especialidad = "Es necesario seleccionar una especialidad";
         if(!appointmentState.fecha) newErrors.fecha = "Es necesario seleccionar una fecha";
         
         return newErrors;
     };
 
-    const handleSubmit = async (cita) => {
-        const formErrors = validate();
+    const handleSubmit = async (cita, selectedDate, selectedTime) => {
+        const formErrors = validate(selectedDate, selectedTime);
         if(Object.keys(formErrors).length > 0){
             setErrors(formErrors)
         }else{
@@ -73,7 +83,7 @@ const useCreateAppointment = () =>{
                     text: "La consulta médica ha sido registrada",
                     timer: 3000,
                 }).then(()=>{
-                    window.location.href = '/confirmacion';
+                    navigate('/confirmacion', {state: {cita}})
                 })
             }catch(error){
                 Swal.fire({

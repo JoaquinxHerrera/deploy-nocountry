@@ -9,9 +9,18 @@ import Appointment from '../Appointment/Appointment';
 import homeImg from '../../assets/img/Illustration.png';
 import HomeBtnLines from '../../assets/icons/HomeBtnLines.png'
 import Spinner from 'react-bootstrap/Spinner';
+import useDeleteAppointment from '../../hooks/useDeleteAppointment';
+import { useState } from 'react';
 
 const AgendarCon = () => {
-  const {appointments, loading, error} = useFetchAppointments();
+  const [refreshTrigger, setRefreshTrigger] = useState(false);
+  const idPaciente = 1;
+  const { appointments, loading, error } = useFetchAppointments(idPaciente, refreshTrigger);
+
+  const handleDeleteSuccess = () => {
+    // Cuando se elimina una cita con éxito, cambiamos el valor de refreshTrigger
+    setRefreshTrigger(prev => !prev);
+  };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -45,10 +54,12 @@ const AgendarCon = () => {
                       {!loading && !error && appointments.map((appointment) => (
                         <Appointment
                           key={appointment.id}
+                          id={appointment.id}
                           title={appointment.especialidad}
                           doctor={`Dr. ${appointment.doctorName}`} 
                           date={formatDate(appointment.fecha)}
                           time={new Date(appointment.fecha).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                          onDeleteSuccess={() => handleDeleteSuccess(appointment.id)}
                         />
                       ))}
                     </div>

@@ -18,14 +18,15 @@ const CitaSimple = () => {
   const [excludedDates, setExcludedDates] = useState([]);
   const [filteredMedicos, setFilteredMedicos] = useState([]);
   const navigate = useNavigate();
-  
+
+
 
   useEffect(() => {
     const fetchAppointmentDates = async () => {
       try {
         const citas = await fetchAppointments(1); 
         const dates = citas.map((cita) => new Date(cita.fecha));
-        setExcludedDates([...dates, ...[0]]);
+        setExcludedDates(dates);
       } catch (error) {
         console.error('Error al obtener las citas agendadas:', error);
       }
@@ -73,8 +74,6 @@ const CitaSimple = () => {
 
     handleSubmit(cita);
     console.log("Datos de la cita:", cita);
-
-    navigate('/confirmacion', {state: {cita}})
   };
 
   return (
@@ -115,6 +114,8 @@ const CitaSimple = () => {
                   dateFormat="dd/MM/yyyy"
                   className="form-control datePicker"
                   excludeDates={excludedDates}
+                  filterDate={(date) => date.getDay() !==0}
+                  minDate={new Date(new Date().setDate(new Date().getDate() + 1)) }
                 />
                 {errors.fecha && <div className="text-danger">{errors.fecha}</div>}
               </Form.Group>

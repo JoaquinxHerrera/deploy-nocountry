@@ -1,10 +1,11 @@
 // import { useAuth0 } from '@auth0/auth0-react';
 import { useState, useEffect } from 'react';
+import { deleteAppointment } from '../api/deleteAppointment';
 import { fetchAppointments } from '../api/fetchAppointment';
 import { getMedicos } from '../api/getMedicos';
 
 // eslint-disable-next-line no-unused-vars
-const useFetchAppointments = (idPaciente) => {
+const useFetchAppointments = (idPaciente, refreshTrigger) => {
     // const {getAccessTokenSilently} = useAuth0();
     const [appointments, setAppointments] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -41,9 +42,23 @@ const useFetchAppointments = (idPaciente) => {
         };
 
        fetchData();
-    }, []);
+    }, [idPaciente, refreshTrigger]);
 
-    return { appointments, loading, error}
+    const handleDeleteAppointment = async (id) => {
+        setLoading(true);
+        try {
+            await deleteAppointment(id, 'PACIENTE_DESISTIO');
+            // Actualiza el estado después de eliminar la cita
+            setAppointments(appointments.filter(appointment => appointment.id !== id));
+        } catch (error) {
+            setError('Error al eliminar la cita');
+            console.error('Error detallado:', error.response ? error.response.data : error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return { appointments, loading, error, handleDeleteAppointment}
 
 };
 

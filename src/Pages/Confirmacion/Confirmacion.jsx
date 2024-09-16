@@ -2,12 +2,26 @@ import { Button, Container, Row } from 'react-bootstrap';
 import {  FaArchive, FaArrowUp, FaHeart } from 'react-icons/fa';
 import BottomNavbar from '../shared/BottomNavbar/BottomNavbar';
 import './ConfirmacionStyles.css';  
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../shared/header/Header';
+import useDeleteAppointment from '../../hooks/useDeleteAppointment';
 
 const Confirmacion = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { cita } = location.state || {};
+  const {handleDeleteAppointment, loading, error, success} = useDeleteAppointment();
+
+  const handleDeleteclick = async () => {
+    if (cita && cita.id){
+      try{
+        await handleDeleteAppointment(cita);
+        navigate('/home');
+      } catch (err){
+        console.error('Error al eminiar la cita', err)
+      }
+    }
+  }
 
   return (
     <div className='full-screen-container d-flex flex-column'>
@@ -22,14 +36,22 @@ const Confirmacion = () => {
               <span><b>Especialidad:</b> {cita?.especialidad}</span>
               <span><b>Fecha:</b> {new Date(cita?.fecha).toLocaleDateString()}</span>
               <span><b>Hora:</b> {new Date(cita?.fecha).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
-              <span><b>Doctor:</b> {cita?.idMedico}</span>
+              <span><b>Doctor:</b> {cita?.nombreMedico}</span>
             </Row>
           </Row>
           <Row className="confirmacion-row">
-            <Button variant="light" className="confirmacion-button" style={{ marginBottom: 0 }}>
+            <Button 
+              variant="light" 
+              className="confirmacion-button" 
+              style={{ marginBottom: 0 }}
+              onClick={handleDeleteclick}  
+              disabled={loading}
+            >
               <FaArchive /> Cancelar Cita
             </Button>
           </Row>
+          {error && <div className="text-danger">{error}</div>}
+          {success && <div className="text-success">{success}</div>}
           <p>Gracias por preferirnos</p>
           <FaArrowUp size={30} className="confirmacion-arrow" />
         </div>
