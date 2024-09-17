@@ -3,6 +3,7 @@ import {  FaArchive, FaArrowUp, FaHeart } from 'react-icons/fa';
 import BottomNavbar from '../shared/BottomNavbar/BottomNavbar';
 import './ConfirmacionStyles.css';  
 import { useLocation, useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
 import Header from '../shared/header/Header';
 import useDeleteAppointment from '../../hooks/useDeleteAppointment';
 
@@ -10,6 +11,13 @@ import useDeleteAppointment from '../../hooks/useDeleteAppointment';
 const Confirmacion = () => {
   const location = useLocation();
   const navigate = useNavigate();
+=======
+import { deleteAppointment } from '../api/deleteAppointment';
+
+const Confirmacion = () => {
+  const location = useLocation();
+  const history = useHistory();
+>>>>>>> 8594cc5d653df0bd342d62001f6b360b21a90bf9
   const { cita } = location.state || {};
   const {handleDeleteAppointment, loading, error, success} = useDeleteAppointment();
 
@@ -20,6 +28,22 @@ const Confirmacion = () => {
         navigate('/home');
       } catch (err){
         console.error('Error al eminiar la cita', err)
+      }
+    }
+  }
+
+  const handleCancelAppointment = async () => {
+    if (cita) {
+      try {
+        const motivo = prompt('Por favor, indique el motivo de la cancelación:');
+        if (motivo) {
+          await deleteAppointment(cita.idConsulta, motivo);
+          alert('Cita cancelada exitosamente');
+          navigate('/'); 
+        }
+      } catch (error) {
+        console.error('Error al cancelar la cita:', error);
+        alert('Hubo un error al cancelar la cita. Por favor, inténtelo de nuevo.');
       }
     }
   }
