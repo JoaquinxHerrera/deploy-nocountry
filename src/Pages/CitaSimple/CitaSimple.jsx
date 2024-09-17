@@ -79,13 +79,21 @@ const CitaSimple = () => {
       return;
     } 
 
+    const year = selectedDate.getFullYear();
+    const month = selectedDate.getMonth();
+    const day = selectedDate.getDate();
+
+    const [hours, minutes] = selectedTime.split(':').map(Number);
+
+    const combinedDateTime = new Date(year, month, day, hours, minutes);
+
     const selectedMedico = medicos.find(medico => medico.id === parseInt(appointmentState.idMedico));
 
     const cita = {
       idPaciente: 1,
       idMedico: parseInt(appointmentState.idMedico),
       nombreMedico: selectedMedico.nombre || 'General',
-      fecha: new Date(`${selectedDate.toLocaleDateString()} ${selectedTime}`).toISOString(),
+      fecha: combinedDateTime.toISOString(),
       especialidad: appointmentState.especialidad,
     };
 
