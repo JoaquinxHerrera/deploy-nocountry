@@ -36,7 +36,7 @@ const Confirmacion = () => {
               <span><b>Especialidad:</b> {cita?.especialidad}</span>
               <span><b>Fecha:</b> {new Date(cita?.fecha).toLocaleDateString()}</span>
               <span><b>Hora:</b> {new Date(cita?.fecha).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
-              <span><b>Doctor:</b> {cita?.nombreMedico}</span>
+              <span><b>Doctor:</b> Dr. {cita?.nombreMedico}</span>
             </Row>
           </Row>
           <Row className="confirmacion-row">
