@@ -14,6 +14,7 @@ const useCreateAppointment = () =>{
         idMedico:'',
         fecha: new Date().toISOString(),
         especialidad: '',
+        hora:'',
     });
 
     const [medicos, setMedicos] = useState([]);
@@ -27,10 +28,10 @@ const useCreateAppointment = () =>{
         const fetchData = async () => {
             try{
                 const medicosData = await getMedicos();
-                console.log('Datos de Medicos:', medicosData)
+                // console.log('Datos de Medicos:', medicosData)
 
                 const especialidadesData = await getEspecialidades();
-                console.log('Datos de especialidades:', especialidadesData);
+                // console.log('Datos de especialidades:', especialidadesData);
 
                 setMedicos(medicosData);
                 setEspecialidades(especialidadesData.content)
@@ -50,7 +51,15 @@ const useCreateAppointment = () =>{
                 [name]: value,
                 idMedico: '',
             }));
-        } else {
+        } else if(name === 'fecha'){
+            setAppointmentState((prevState)=>({
+                ...prevState,
+                [name]: value,
+                hora: '',
+            }))
+        } 
+        
+        else {
             setAppointmentState((prevState) => ({
                 ...prevState,
                 [name]: value,
@@ -63,12 +72,13 @@ const useCreateAppointment = () =>{
         if(!appointmentState.idMedico) newErrors.idMedico = "Es necesario seleccionar un médico";
         if(!appointmentState.especialidad) newErrors.especialidad = "Es necesario seleccionar una especialidad";
         if(!appointmentState.fecha) newErrors.fecha = "Es necesario seleccionar una fecha";
+        if(!appointmentState.hora) newErrors.hora = "Es necesario seleccionar una hora";
         
         return newErrors;
     };
 
-    const handleSubmit = async (cita, selectedDate, selectedTime) => {
-        const formErrors = validate(selectedDate, selectedTime);
+    const handleSubmit = async (cita) => {
+        const formErrors = validate();
         if(Object.keys(formErrors).length > 0){
             setErrors(formErrors)
         }else{

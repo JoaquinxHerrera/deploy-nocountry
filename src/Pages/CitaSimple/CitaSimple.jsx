@@ -19,8 +19,6 @@ const CitaSimple = () => {
   const [filteredMedicos, setFilteredMedicos] = useState([]);
   const navigate = useNavigate();
 
-
-
   useEffect(() => {
     const fetchAppointmentDates = async () => {
       try {
@@ -39,6 +37,9 @@ const CitaSimple = () => {
     if (selectedDate) {
       const times = ['09:00', '10:00', '11:00', '14:00', '15:00'];
       setAvailableTimes(times);
+    }else{
+      setSelectedTime([])
+      setSelectedDate([])
     }
   }, [selectedDate]);
 
@@ -52,6 +53,25 @@ const CitaSimple = () => {
   }, [appointmentState.especialidad, medicos])
 
   const handleSubmitClick = () => {
+    if (!appointmentState.especialidad) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Por favor, selecciona una especialidad.",
+        timer: 3000,
+      });
+      return;
+    }
+
+    if (!appointmentState.idMedico) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Por favor, selecciona un doctor.",
+        timer: 3000,
+      });
+      return;
+    }
     if (!selectedDate || !selectedTime) {
       Swal.fire({
         icon: "error",
@@ -60,7 +80,7 @@ const CitaSimple = () => {
         timer: 3000,
       });
       return;
-    }
+    } 
 
     const selectedMedico = medicos.find(medico => medico.id === parseInt(appointmentState.idMedico));
 
