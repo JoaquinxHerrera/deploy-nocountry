@@ -80,7 +80,6 @@ const CitaSimple = () => {
     } 
   
     const selectedMedico = medicos.find(medico => medico.id === parseInt(appointmentState.idMedico));
-<<<<<<< HEAD
   
     // Combina fecha y hora de manera segura
     const [hours, minutes] = selectedTime.split(':');
@@ -103,39 +102,13 @@ const CitaSimple = () => {
       idMedico: parseInt(appointmentState.idMedico),
       nombreMedico: selectedMedico?.nombre || 'General',
       fecha: appointmentDate.toISOString(),
-=======
-
-    const fechaHora = new Date(`${selectedDate.toLocaleDateString()} ${selectedTime}`);
-  console.log("selectedDate:", selectedDate);
-  console.log("selectedTime:", selectedTime);
-  console.log("fechaHora:", fechaHora);
-
-  if (isNaN(fechaHora.getTime())) {
-    Swal.fire({
-      icon: "error",
-      title: "Error",
-      text: "Fecha y hora seleccionadas no son válidas.",
-      timer: 3000,
-    });
-    return;
-  }
-    const cita = {
-      idPaciente: 1,
-      idMedico: parseInt(appointmentState.idMedico),
-      nombreMedico: selectedMedico ? selectedMedico.nombre : 'General',
-      fecha: fechaHora.toISOString(),
->>>>>>> 8594cc5d653df0bd342d62001f6b360b21a90bf9
       especialidad: appointmentState.especialidad,
     };
   
     handleSubmit(cita);
     console.log("Datos de la cita:", cita);
-<<<<<<< HEAD
-=======
-
-    navigate('/confirmacion', { state: { cita } });
->>>>>>> 8594cc5d653df0bd342d62001f6b360b21a90bf9
   };
+  
   
 
   return (
