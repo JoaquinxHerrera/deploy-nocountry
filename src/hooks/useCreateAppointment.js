@@ -14,7 +14,7 @@ const useCreateAppointment = () =>{
         idMedico:'',
         fecha: new Date().toISOString(),
         especialidad: '',
-        hora:'',
+        // hora:'',
     });
 
     const [medicos, setMedicos] = useState([]);
