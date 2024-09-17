@@ -51,15 +51,7 @@ const useCreateAppointment = () =>{
                 [name]: value,
                 idMedico: '',
             }));
-        } else if(name === 'fecha'){
-            setAppointmentState((prevState)=>({
-                ...prevState,
-                [name]: value,
-                hora: '',
-            }))
-        } 
-        
-        else {
+        } else {
             setAppointmentState((prevState) => ({
                 ...prevState,
                 [name]: value,
@@ -72,7 +64,6 @@ const useCreateAppointment = () =>{
         if(!appointmentState.idMedico) newErrors.idMedico = "Es necesario seleccionar un médico";
         if(!appointmentState.especialidad) newErrors.especialidad = "Es necesario seleccionar una especialidad";
         if(!appointmentState.fecha) newErrors.fecha = "Es necesario seleccionar una fecha";
-        if(!appointmentState.hora) newErrors.hora = "Es necesario seleccionar una hora";
         
         return newErrors;
     };
