@@ -2,11 +2,29 @@ import { Button, Container, Row } from 'react-bootstrap';
 import {  FaArchive, FaArrowUp, FaHeart } from 'react-icons/fa';
 import BottomNavbar from '../shared/BottomNavbar/BottomNavbar';
 import './ConfirmacionStyles.css';  
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { deleteAppointment } from '../api/deleteAppointment';
 
 const Confirmacion = () => {
   const location = useLocation();
+  const history = useHistory();
   const { cita } = location.state || {};
+
+  const handleCancelAppointment = async () => {
+    if (cita) {
+      try {
+        const motivo = prompt('Por favor, indique el motivo de la cancelación:');
+        if (motivo) {
+          await deleteAppointment(cita.idConsulta, motivo);
+          alert('Cita cancelada exitosamente');
+          navigate('/'); 
+        }
+      } catch (error) {
+        console.error('Error al cancelar la cita:', error);
+        alert('Hubo un error al cancelar la cita. Por favor, inténtelo de nuevo.');
+      }
+    }
+  }
 
   return (
     <div className='full-screen-container d-flex flex-column'>

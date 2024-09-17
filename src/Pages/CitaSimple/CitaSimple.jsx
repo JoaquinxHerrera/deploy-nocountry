@@ -39,14 +39,14 @@ const CitaSimple = () => {
     }
   }, [selectedDate]);
 
-  useEffect(()=>{
-    if(appointmentState.especialidad){
+  useEffect(() => {
+    if (appointmentState.especialidad) {
       const medicosFiltrados = medicos.filter(medico => medico.especialidad === appointmentState.especialidad);
       setFilteredMedicos(medicosFiltrados);
-    }else{
+    } else {
       setFilteredMedicos([]);
     }
-  }, [appointmentState.especialidad, medicos])
+  }, [appointmentState.especialidad, medicos]);
 
   const handleSubmitClick = () => {
     if (!selectedDate || !selectedTime) {
@@ -61,18 +61,32 @@ const CitaSimple = () => {
 
     const selectedMedico = medicos.find(medico => medico.id === parseInt(appointmentState.idMedico));
 
+    const fechaHora = new Date(`${selectedDate.toLocaleDateString()} ${selectedTime}`);
+  console.log("selectedDate:", selectedDate);
+  console.log("selectedTime:", selectedTime);
+  console.log("fechaHora:", fechaHora);
+
+  if (isNaN(fechaHora.getTime())) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Fecha y hora seleccionadas no son válidas.",
+      timer: 3000,
+    });
+    return;
+  }
     const cita = {
       idPaciente: 1,
       idMedico: parseInt(appointmentState.idMedico),
-      nombreMedico: selectedMedico.nombre || 'General',
-      fecha: new Date(`${selectedDate.toLocaleDateString()} ${selectedTime}`).toISOString(),
+      nombreMedico: selectedMedico ? selectedMedico.nombre : 'General',
+      fecha: fechaHora.toISOString(),
       especialidad: appointmentState.especialidad,
     };
 
     handleSubmit(cita);
     console.log("Datos de la cita:", cita);
 
-    navigate('/confirmacion', {state: {cita}})
+    navigate('/confirmacion', { state: { cita } });
   };
 
   return (
