@@ -59,7 +59,7 @@ const CitaSimple = () => {
       });
       return;
     }
-
+  
     if (!appointmentState.idMedico) {
       Swal.fire({
         icon: "error",
@@ -78,20 +78,37 @@ const CitaSimple = () => {
       });
       return;
     } 
-
+  
     const selectedMedico = medicos.find(medico => medico.id === parseInt(appointmentState.idMedico));
-
+  
+    // Combina fecha y hora de manera segura
+    const [hours, minutes] = selectedTime.split(':');
+    const appointmentDate = new Date(selectedDate);
+    appointmentDate.setHours(parseInt(hours, 10));
+    appointmentDate.setMinutes(parseInt(minutes, 10));
+  
+    if (isNaN(appointmentDate.getTime())) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Fecha o hora inválida.",
+        timer: 3000,
+      });
+      return;
+    }
+  
     const cita = {
       idPaciente: 1,
       idMedico: parseInt(appointmentState.idMedico),
-      nombreMedico: selectedMedico.nombre || 'General',
-      fecha: new Date(`${selectedDate.toLocaleDateString()} ${selectedTime}`).toISOString(),
+      nombreMedico: selectedMedico?.nombre || 'General',
+      fecha: appointmentDate.toISOString(),
       especialidad: appointmentState.especialidad,
     };
-
+  
     handleSubmit(cita);
     console.log("Datos de la cita:", cita);
   };
+  
 
   return (
     <div className="vh-100 justify-content-between d-flex flex-column ">
