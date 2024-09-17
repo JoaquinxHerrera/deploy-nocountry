@@ -8,7 +8,7 @@ import useDeleteAppointment from '../../hooks/useDeleteAppointment';
 
 const Confirmacion = () => {
   const location = useLocation();
-  const navigate = useNavigate(); // Reemplaza useHistory por useNavigate
+  const navigate = useNavigate(); 
   const { cita } = location.state || {};
   const { handleDeleteAppointment, loading, error, success } = useDeleteAppointment();
 
@@ -16,7 +16,7 @@ const Confirmacion = () => {
     if (cita && cita.id) {
       try {
         await handleDeleteAppointment(cita);
-        navigate('/home'); // Navega usando useNavigate
+        navigate('/home'); 
       } catch (err) {
         console.error('Error al eliminar la cita', err);
       }
