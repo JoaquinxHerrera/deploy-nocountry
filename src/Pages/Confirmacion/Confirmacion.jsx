@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../shared/header/Header';
 import useDeleteAppointment from '../../hooks/useDeleteAppointment';
 
+
 const Confirmacion = () => {
   const location = useLocation();
   const navigate = useNavigate();
