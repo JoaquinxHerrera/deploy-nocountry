@@ -20,7 +20,7 @@ const useFetchAppointments = (idPaciente, refreshTrigger) => {
                 //     },
                 // });
                 // console.log('token obtenido:', token)
-                const Appointmentsdata = await fetchAppointments(1);
+                const Appointmentsdata = await fetchAppointments(idPaciente);
                 const medicosData = await getMedicos();
 
                 const AppointmentsAndMedicos = Appointmentsdata.map(appointment => {
@@ -48,7 +48,6 @@ const useFetchAppointments = (idPaciente, refreshTrigger) => {
         setLoading(true);
         try {
             await deleteAppointment(id, 'PACIENTE_DESISTIO');
-            // Actualiza el estado después de eliminar la cita
             setAppointments(appointments.filter(appointment => appointment.id !== id));
         } catch (error) {
             setError('Error al eliminar la cita');

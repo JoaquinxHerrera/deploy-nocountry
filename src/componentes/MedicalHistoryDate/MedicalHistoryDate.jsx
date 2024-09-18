@@ -1,37 +1,22 @@
+
+import { NavLink } from 'react-router-dom';
 import './MedicalHistoryDateStyles.css'
 
-const MedicalHistoryDate = ({date}) => {
+const MedicalHistoryDate = ({id, title, doctor, date, time}) => {
   return (
-    <div className='medicalHistory px-3 py-4 mb-2'>
-      {/* {date} */}
-      <div className='appointment'>
-        <p className='historyDate mb-2'>31/08/24, 08:50 am</p>
-        <p className='historyResume p-0 m-0'>
-          Lugar de atención: IPS Centro de Rehabilitación Sura, Medellín. <br />
-          Servicio: Terapia física miembro inferior. <br />
-          EPS: Profesional Sulvarán Olaya Katherine.
-        </p>
+    <NavLink to={`/consulta/detalle/${id}`} className='text-decoration-none w-100'>
+      <div className="d-flex justify-content-between align-items-center date px-3 rounded-4 mb-2 w-100 bg-white medicalHistory">
+        <div>
+          <p className='headline-2 m-0 p-0'>{title}</p>
+          <p className='homeDr m-0 '>{doctor}</p>
+        </div>
+        <div className='homeCircleDate d-flex flex-column justify-content-center'>
+          <p className='headline-2 m-0'>{date}</p>
+          <p className='homeTime mb-2'>{time}</p>
+        </div>
       </div>
-      
-      <div className='appointment'>
-        <p className='historyDate mb-2'>03/09/24, 07:20 am</p>
-        <p className='historyResume p-0 m-0'>
-          Lugar de atención: IPS Centro de Rehabilitación Sura, Medellín. <br />
-          Servicio: Terapia física miembro inferior. <br />
-          EPS: Profesional Marín Vargas Clara.
-        </p>
-      </div>
-      
-      <div className='appointment'>
-        <p className='historyDate mb-2'>16/09/24, 07:00 am</p>
-        <p className='historyResume p-0 m-0'>
-          Lugar de atención: IPS Centro de Rehabilitación Sura, Medellín. <br />
-          Taller: Protección lumbar. <br />
-          Profesional: Bohórquez Villamizar María Fernanda.
-        </p>
-      </div>
-    </div>
-  )
+    </NavLink>
+  );
 }
 
 export default MedicalHistoryDate

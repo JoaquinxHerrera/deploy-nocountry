@@ -6,6 +6,7 @@ import SignIn from '../Pages/SignIn/SignIn';
 import Home from '../Pages/Home/Home';
 import CitaSimple from '../Pages/CitaSimple/CitaSimple';
 import Profile from '../Pages/Profile/Profile';
+import AppointmentDetail from '../Pages/AppointmentDetail/AppointmentDetail';
 // import AuthenticationGuard from '../componentes/auth0/AuthenticationGuard'
 
 const AppRoutes = () => {
@@ -16,9 +17,10 @@ const AppRoutes = () => {
         <Route path='/signin'  element={<SignIn/>} /> */}
         <Route path='*'  element={<Home/>} />
         <Route path='/consulta/:idPaciente' element={<CitaSimple />} /> 
-        <Route path='/history' element={<MedicalHistory />} /> 
+        <Route path='/history/:idPaciente' element={<MedicalHistory />} />
+        <Route path="/consulta/detalle/:id" element={<AppointmentDetail />} /> 
         <Route path='/confirmacion' element={<Confirmacion />} /> 
-        <Route path='/perfil' element={<Profile />} /> 
+        <Route path='/profile/:idPaciente' element={<Profile />} /> 
       </Routes>
     </>
   );
