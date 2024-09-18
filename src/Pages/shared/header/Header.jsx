@@ -6,11 +6,13 @@ import {NavLink, useLocation, useNavigate} from 'react-router-dom'
 import { FaArrowLeft } from 'react-icons/fa'
 import { Container, Nav, Navbar, NavDropdown, Offcanvas } from 'react-bootstrap'
 import LogoutButton from '../../../componentes/auth0/LogoutButton'
+import useGetPacientesById from '../../../hooks/useGetPacientesById'
 
 const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const {paciente} = useGetPacientesById();
 
   const isHomePage = location.pathname === '/home' || location.pathname === '/'
 
@@ -25,12 +27,12 @@ const Header = () => {
   return (
        <>
       {[false].map((expand) => (
-        <Navbar key={expand} expand={expand}>
+        <Navbar key={expand} expand={expand} className="pb-0">
           <Container fluid>
             {isHomePage ? (
-            <div className='d-flex justify-content-center align-items-center'>
+            <div className='d-flex justify-content-center align-items-center mb-0 pb-0'>
               <img src={Hand} alt="Mano saludando en header" className='me-2 mb-2 headerHand'/>
-              <p className='header mb-0 '>Hola Julia!</p>
+              <p className='header mb-0 '>Hola {paciente?.nombre}!</p>
             </div>
             ) : (
               <NavLink to='/home'>
@@ -55,7 +57,7 @@ const Header = () => {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="text-center mt-5 gap-2">
-                  <Nav.Link href="/perfil" className="fs-4">Mi perfil</Nav.Link>
+                  <Nav.Link href="/profile/:idPaciente" className="fs-4">Mi perfil</Nav.Link>
                   <Nav.Link href="/configuracion" className="fs-4">Configuracion</Nav.Link>
                   <LogoutButton/>
                 </Nav>

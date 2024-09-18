@@ -59,7 +59,37 @@ const CitaSimple = () => {
       });
       return;
     }
+
     
+
+    if (!appointmentState.idMedico) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Por favor, selecciona un doctor.",
+        timer: 3000,
+      });
+      return;
+    }
+    if (!selectedDate || !selectedTime) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Por favor, selecciona una fecha y hora válidas.",
+        timer: 3000,
+      });
+      return;
+    } 
+
+    const year = selectedDate.getFullYear();
+    const month = selectedDate.getMonth();
+    const day = selectedDate.getDate();
+
+    const [hours, minutes] = selectedTime.split(':').map(Number);
+
+    const combinedDateTime = new Date(year, month, day, hours, minutes);
+
+
     const selectedMedico = medicos.find(medico => medico.id === parseInt(appointmentState.idMedico));
     const [hours, minutes] = selectedTime.split(':');
     const appointmentDate = new Date(selectedDate);
@@ -69,8 +99,12 @@ const CitaSimple = () => {
     const cita = {
       idPaciente: 1, // Asegúrate de tener un ID válido aquí
       idMedico: parseInt(appointmentState.idMedico),
+
       nombreMedico: selectedMedico?.nombre || 'General',
       fecha: appointmentDate.toISOString(),
+
+      nombreMedico: selectedMedico.nombre || 'General',
+      fecha: combinedDateTime.toISOString(),
       especialidad: appointmentState.especialidad,
     };
     
