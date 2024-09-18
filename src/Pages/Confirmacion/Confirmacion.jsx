@@ -5,23 +5,38 @@ import './ConfirmacionStyles.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../shared/header/Header';
 import useDeleteAppointment from '../../hooks/useDeleteAppointment';
+import { useEffect } from 'react';
 
 const Confirmacion = () => {
   const location = useLocation();
   const navigate = useNavigate(); 
-  const { cita } = location.state || {};
+  const { cita } = location.state || {};  // Verifica si el estado contiene cita
+
+  useEffect(() => {
+    console.log('Datos de cita:', cita);
+    if (!cita || !cita.idMedico) {  // Asegúrate de que 'cita' contenga los datos
+      navigate('/home');
+    }
+  }, [cita, navigate]);
+
+
   const { handleDeleteAppointment, loading, error, success } = useDeleteAppointment();
 
-  const handleDeleteclick = async () => {
-    if (cita && cita.id) {
+  const handleDeleteClick = async () => {
+    if (cita && cita.idMedico) {  // Verifica que 'cita' tenga un id de médico
+      console.log('Intentando eliminar la cita con ID:', cita.idMedico);
       try {
-        await handleDeleteAppointment(cita);
-        navigate('/home'); 
+        await handleDeleteAppointment(cita.idMedico, 'Motivo de cancelación');
+        console.log('Cita eliminada con éxito');
+        navigate('/home');
       } catch (err) {
         console.error('Error al eliminar la cita', err);
       }
+    } else {
+      console.error('Datos de cita no disponibles para eliminar');
     }
   };
+  
 
   return (
     <div className="full-screen-container d-flex flex-column">
@@ -44,7 +59,7 @@ const Confirmacion = () => {
               variant="light"
               className="confirmacion-button"
               style={{ marginBottom: 0 }}
-              onClick={handleDeleteclick}
+              onClick={handleDeleteClick}
               disabled={loading}
             >
               <FaArchive /> Cancelar Cita
