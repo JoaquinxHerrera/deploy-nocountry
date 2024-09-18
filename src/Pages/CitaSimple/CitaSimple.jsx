@@ -91,7 +91,7 @@ const CitaSimple = () => {
 
 
     const selectedMedico = medicos.find(medico => medico.id === parseInt(appointmentState.idMedico));
-    const [hours, minutes] = selectedTime.split(':');
+ /*    const [hours, minutes] = selectedTime.split(':'); */
     const appointmentDate = new Date(selectedDate);
     appointmentDate.setHours(parseInt(hours, 10));
     appointmentDate.setMinutes(parseInt(minutes, 10));
