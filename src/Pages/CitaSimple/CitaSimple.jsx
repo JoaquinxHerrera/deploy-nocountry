@@ -50,63 +50,32 @@ const CitaSimple = () => {
   }, [appointmentState.especialidad, medicos]);
 
   const handleSubmitClick = () => {
-    if (!appointmentState.especialidad) {
+    if (!appointmentState.especialidad || !appointmentState.idMedico || !selectedDate || !selectedTime) {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Por favor, selecciona una especialidad.",
+        text: "Por favor, completa todos los campos antes de confirmar.",
         timer: 3000,
       });
       return;
     }
-  
-    if (!appointmentState.idMedico) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Por favor, selecciona un doctor.",
-        timer: 3000,
-      });
-      return;
-    }
-    if (!selectedDate || !selectedTime) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Por favor, selecciona una fecha y hora válidas.",
-        timer: 3000,
-      });
-      return;
-    } 
-  
+    
     const selectedMedico = medicos.find(medico => medico.id === parseInt(appointmentState.idMedico));
-  
-    // Combina fecha y hora de manera segura
     const [hours, minutes] = selectedTime.split(':');
     const appointmentDate = new Date(selectedDate);
     appointmentDate.setHours(parseInt(hours, 10));
     appointmentDate.setMinutes(parseInt(minutes, 10));
-  
-    if (isNaN(appointmentDate.getTime())) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Fecha o hora inválida.",
-        timer: 3000,
-      });
-      return;
-    }
-  
+    
     const cita = {
-      idPaciente: 1,
+      idPaciente: 1, // Asegúrate de tener un ID válido aquí
       idMedico: parseInt(appointmentState.idMedico),
       nombreMedico: selectedMedico?.nombre || 'General',
       fecha: appointmentDate.toISOString(),
       especialidad: appointmentState.especialidad,
     };
-  
-    handleSubmit(cita);
-    console.log("Datos de la cita:", cita);
+    
+    // Navegar a la página de confirmación y pasar la cita
+    navigate('/confirmacion', { state: { cita } });
   };
   
   
