@@ -9,7 +9,7 @@ const BottomNavbar = () => {
             <Nav.Link href='/home'>
                <FaHouseUser size={30} className="home-icon"/>
             </Nav.Link>
-            <Nav.Link href='/history'>
+            <Nav.Link href='/history/:idPaciente'>
                 <FaChartBar size={30} className="home-icon"/>
             </Nav.Link>
             <Nav.Link href='/notifications'>

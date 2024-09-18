@@ -18,7 +18,6 @@ const AgendarCon = () => {
   const { appointments, loading, error } = useFetchAppointments(idPaciente, refreshTrigger);
 
   const handleDeleteSuccess = () => {
-    // Cuando se elimina una cita con éxito, cambiamos el valor de refreshTrigger
     setRefreshTrigger(prev => !prev);
   };
 
@@ -28,10 +27,21 @@ const AgendarCon = () => {
     return date.toLocaleDateString('en-GB', options)
   }
 
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const futureAppointments = appointments
+    .filter(appointment=>{
+      const appointmentDate = new Date(appointment.fecha);
+      return appointmentDate >= today;
+  })
+  .sort((a,b)=>new Date(a.fecha) - new Date(b.fecha));
+  
+
   return (
     <div className="vh-100 d-flex flex-column position-relative">
       <Header/>
-        <div className="p-3 ms-1 flex-grow-1 overflow-auto">
+        <div className="p-3 pt-0 ms-1 flex-grow-1 overflow-auto">
           {error ? (
             <p>Error al cargar las citas: {error}</p>
             ) : (
@@ -48,10 +58,10 @@ const AgendarCon = () => {
                   </div> 
                 ) : (
                   <>
-                    <p className='header position-sticky top-0 bg-white z-index-1'>Proximas citas</p>
-                    <div className='flex-grow-1 overflow-auto d-flex flex-column align-items-center'>
+                    <p className='header position-sticky top-0 bg-white'>Proximas citas</p>
+                    <div className='d-flex flex-column align-items-center'>
                       {loading && <Spinner animation="border" variant="warning" role="status"/>}
-                      {!loading && !error && appointments.map((appointment) => (
+                      {!loading && !error && futureAppointments.map((appointment) => (
                         <Appointment
                           key={appointment.id}
                           id={appointment.id}

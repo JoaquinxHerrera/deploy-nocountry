@@ -10,7 +10,7 @@ const Appointment = ({id, title, doctor, date, time, onDeleteSuccess}) => {
       console.log('el id de la consulta:', id);
       await handleDeleteAppointment(id, 'PACIENTE_DESISTIO');
       if (onDeleteSuccess) {
-        onDeleteSuccess(); // Llamar a la función para refrescar la lista
+        onDeleteSuccess();
       }
     } catch (err) {
       console.error('Error al eliminar la cita', err);
@@ -27,7 +27,7 @@ const Appointment = ({id, title, doctor, date, time, onDeleteSuccess}) => {
         <p className='headline-2 m-0'>{date}</p>
         <p className='homeTime mb-2'>{time}</p>
       </div>
-      <button onClick={handleDeleteClick} disabled={loading}>
+      <button onClick={handleDeleteClick} disabled={loading} className='deleteBtn'>
         x
       </button>
     </div>
