@@ -40,27 +40,25 @@ const CitaSimple = () => {
     }
   }, [selectedDate]);
 
-  useEffect(() => {
-    if (appointmentState.especialidad) {
+  useEffect(()=>{
+    if(appointmentState.especialidad){
       const medicosFiltrados = medicos.filter(medico => medico.especialidad === appointmentState.especialidad);
       setFilteredMedicos(medicosFiltrados);
-    } else {
+    }else{
       setFilteredMedicos([]);
     }
-  }, [appointmentState.especialidad, medicos]);
+  }, [appointmentState.especialidad, medicos])
 
   const handleSubmitClick = () => {
-    if (!appointmentState.especialidad || !appointmentState.idMedico || !selectedDate || !selectedTime) {
+    if (!appointmentState.especialidad) {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Por favor, completa todos los campos antes de confirmar.",
+        text: "Por favor, selecciona una especialidad.",
         timer: 3000,
       });
       return;
     }
-
-    
 
     if (!appointmentState.idMedico) {
       Swal.fire({
@@ -89,30 +87,19 @@ const CitaSimple = () => {
 
     const combinedDateTime = new Date(year, month, day, hours, minutes);
 
-
     const selectedMedico = medicos.find(medico => medico.id === parseInt(appointmentState.idMedico));
-    const [hours, minutes] = selectedTime.split(':');
-    const appointmentDate = new Date(selectedDate);
-    appointmentDate.setHours(parseInt(hours, 10));
-    appointmentDate.setMinutes(parseInt(minutes, 10));
-    
+
     const cita = {
-      idPaciente: 1, // Asegúrate de tener un ID válido aquí
+      idPaciente: 1,
       idMedico: parseInt(appointmentState.idMedico),
-
-      nombreMedico: selectedMedico?.nombre || 'General',
-      fecha: appointmentDate.toISOString(),
-
       nombreMedico: selectedMedico.nombre || 'General',
       fecha: combinedDateTime.toISOString(),
       especialidad: appointmentState.especialidad,
     };
-    
-    // Navegar a la página de confirmación y pasar la cita
-    navigate('/confirmacion', { state: { cita } });
+
+    handleSubmit(cita);
+    console.log("Datos de la cita:", cita);
   };
-  
-  
 
   return (
     <div className="vh-100 justify-content-between d-flex flex-column ">
