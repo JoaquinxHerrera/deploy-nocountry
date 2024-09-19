@@ -5,7 +5,6 @@ const BACKEND_ENDPOINT = import.meta.env.VITE_BACKEND_URL;
 export const getPacientesById = async (idPaciente) => {
     try {
         const response = await axios.get(`${BACKEND_ENDPOINT}/pacientes/${idPaciente}`);
-        console.log('Respuesta appointments:', response.data)
         return response.data;
     } catch (error) {
         if (error.response) {
