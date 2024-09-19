@@ -97,21 +97,6 @@ const CitaSimple = () => {
 
     const selectedMedico = medicos.find(medico => medico.id === parseInt(appointmentState.idMedico));
 
-<<<<<<< HEAD
-    const cita = {
-      idPaciente: 1,
-      idMedico: parseInt(appointmentState.idMedico),
-      nombreMedico: selectedMedico?.nombre || 'General',
-      fecha: combinedDateTime.toISOString(), // Usar esta fecha para la cita
-=======
- /*    const [hours, minutes] = selectedTime.split(':'); */
-    const appointmentDate = new Date(selectedDate);
-    appointmentDate.setHours(parseInt(hours, 10));
-    appointmentDate.setMinutes(parseInt(minutes, 10));
-    
-
-
-
     const cita = {
       idPaciente: 1,
       idMedico: parseInt(appointmentState.idMedico),
