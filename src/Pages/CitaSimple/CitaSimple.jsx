@@ -46,8 +46,12 @@ const CitaSimple = () => {
       setFilteredMedicos(medicosFiltrados);
     }else{
       setFilteredMedicos([]);
+      setSelectedDate(null);
+      setSelectedTime('')
     }
-  }, [appointmentState.especialidad, medicos])
+    setSelectedDate(null);
+    setSelectedTime('')
+  }, [appointmentState.especialidad, appointmentState.idMedico ,medicos])
 
   const handleSubmitClick = () => {
     if (!appointmentState.especialidad) {
@@ -141,13 +145,14 @@ const CitaSimple = () => {
                   excludeDates={excludedDates}
                   filterDate={(date) => date.getDay() !==0}
                   minDate={new Date(new Date().setDate(new Date().getDate() + 1)) }
+                  disabled={!appointmentState.idMedico}
                 />
                 {errors.fecha && <div className="text-danger">{errors.fecha}</div>}
               </Form.Group>
 
               <Form.Group className='mb-2' controlId="formTime">
                 <Form.Label>Hora</Form.Label>
-                <Form.Control as="select" value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}>
+                <Form.Control as="select" value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)} disabled={!selectedDate}>
                   <option>Seleccionar Hora</option>
                   {availableTimes.map((time, index) => (
                     <option key={index} value={time}>{time}</option>
