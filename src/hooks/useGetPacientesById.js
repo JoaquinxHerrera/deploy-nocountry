@@ -14,7 +14,7 @@ const useGetPacientesById = () => {
       setError(null);
       try {
         const pacienteData = await getPacientesById(idPaciente);
-        console.log('Datos del paciente:', pacienteData);
+        // console.log('Datos del paciente:', pacienteData);
         if(pacienteData){
           setPaciente(pacienteData);
         }else{
@@ -25,7 +25,7 @@ const useGetPacientesById = () => {
         console.error('error en la llamada api dentro del hook', err)
       } finally {
         setLoading(false);
-        console.log('estado final del paciente', paciente)
+        // console.log('estado final del paciente', paciente)
       }
     };
 

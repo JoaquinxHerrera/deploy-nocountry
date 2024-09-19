@@ -85,7 +85,7 @@ const CitaSimple = () => {
 
     const [hours, minutes] = selectedTime.split(':').map(Number);
 
-    const combinedDateTime = new Date(year, month, day, hours, minutes);
+    const combinedDateTime = new Date(Date.UTC(year, month, day, hours, minutes));
 
     const selectedMedico = medicos.find(medico => medico.id === parseInt(appointmentState.idMedico));
 
