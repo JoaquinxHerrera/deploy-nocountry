@@ -1,4 +1,3 @@
-
 import { Button, Container, Row } from 'react-bootstrap';
 import { FaArchive, FaArrowUp, FaHeart } from 'react-icons/fa';
 import BottomNavbar from '../shared/BottomNavbar/BottomNavbar';
@@ -7,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../shared/header/Header';
 import useDeleteAppointment from '../../hooks/useDeleteAppointment';
 import { useEffect } from 'react';
+import { format } from 'date-fns';
 
 const Confirmacion = () => {
   const location = useLocation();
@@ -19,7 +19,6 @@ const Confirmacion = () => {
       navigate('/home');
     }
   }, [cita, navigate]);
-
 
   const { handleDeleteAppointment, loading, error, success } = useDeleteAppointment();
 
@@ -37,7 +36,9 @@ const Confirmacion = () => {
       console.error('Datos de cita no disponibles para eliminar');
     }
   };
-  
+
+  const fechaFormateada = cita?.fecha ? format(new Date(cita.fecha), 'dd/MM/yyyy') : 'Fecha no disponible';
+  const horaFormateada = cita?.fecha ? format(new Date(cita.fecha), 'HH:mm') : 'Hora no disponible';
 
   return (
     <div className="full-screen-container d-flex flex-column">
@@ -50,8 +51,8 @@ const Confirmacion = () => {
             <b><u>Resumen de la cita</u></b>
             <Row>
               <span><b>Especialidad:</b> {cita?.especialidad}</span>
-              <span><b>Fecha:</b> {new Date(cita?.fecha).toLocaleDateString()}</span>
-              <span><b>Hora:</b> {new Date(cita?.fecha).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+              <span><b>Fecha:</b> {fechaFormateada}</span>
+              <span><b>Hora:</b> {horaFormateada}</span>
               <span><b>Doctor:</b> Dr. {cita?.nombreMedico}</span>
             </Row>
           </Row>
