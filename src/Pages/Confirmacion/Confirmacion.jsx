@@ -42,17 +42,16 @@ const Confirmacion = () => {
               <span><b>Doctor:</b> Dr. {cita?.nombreMedico}</span>
             </Row>
           </Row>
-          <Row className="confirmacion-row">
+          {/* <Row className="confirmacion-row">
             <Button 
-              variant="light" 
-              className="confirmacion-button" 
+              className="btn-cancel text-white" 
               style={{ marginBottom: 0 }}
               onClick={handleDeleteclick}  
               disabled={loading}
             >
               <FaArchive /> Cancelar Cita
             </Button>
-          </Row>
+          </Row> */}
           {error && <div className="text-danger">{error}</div>}
           {success && <div className="text-success">{success}</div>}
           <p>Gracias por preferirnos</p>
