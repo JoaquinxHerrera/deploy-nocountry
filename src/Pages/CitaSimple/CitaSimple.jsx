@@ -108,12 +108,17 @@ const CitaSimple = () => {
 
 
 
-  const cita = {
+    const cita = {
       idPaciente: 1,
       idMedico: parseInt(appointmentState.idMedico),
-      nombreMedico: selectedMedico?.nombre || 'General',
-      fechaInicio: appointmentDate.toISOString(), // Revisa este campo
-      fechaCita: combinedDateTime.toISOString(), // Revisa este campo
+
+    
+      nombreMedico: selectedMedico?.nombre || 'General', // Este es correcto
+      fechaInicio: appointmentDate.toISOString(), // Cambia uno de los "fecha" a "fechaInicio"
+    
+      // Cambia "nombreMedico" o elimina si ya lo definiste arriba
+      medicoSeleccionado: selectedMedico?.nombre || 'General', // Cambia "nombreMedico" por "medicoSeleccionado"
+      fechaCita: combinedDateTime.toISOString(), // Cambia el segundo "fecha" por "fechaCita"
       especialidad: appointmentState.especialidad,
     };
     
