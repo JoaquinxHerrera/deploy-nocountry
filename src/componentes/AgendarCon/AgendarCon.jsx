@@ -3,20 +3,20 @@ import { NavLink } from 'react-router-dom';
 import BottomNavbar from '../../Pages/shared/BottomNavbar/BottomNavbar';
 import Header from '../../Pages/shared/header/Header';
 import './AgendarConStyles.css';
-import addDate from '../../assets/icons/AddDate.png'
+import addDate from '../../assets/icons/AddDate.png';
 import useFetchAppointments from '../../hooks/useFetchAppointments';
 import Appointment from '../Appointment/Appointment';
 import homeImg from '../../assets/img/Illustration.png';
-import HomeBtnLines from '../../assets/icons/HomeBtnLines.png'
+import HomeBtnLines from '../../assets/icons/HomeBtnLines.png';
 import Spinner from 'react-bootstrap/Spinner';
 import useDeleteAppointment from '../../hooks/useDeleteAppointment';
 import { useState } from 'react';
+import Swal from 'sweetalert2';
 
 const AgendarCon = () => {
   const [refreshTrigger, setRefreshTrigger] = useState(false);
   const idPaciente = 1;
   const { appointments, loading, error } = useFetchAppointments(idPaciente, refreshTrigger);
-
 
   const handleDeleteSuccess = (appointmentId, appointmentDate) => {
     const now = new Date();
@@ -33,19 +33,25 @@ const AgendarCon = () => {
       // Lógica para eliminar la cita
       setRefreshTrigger(prev => !prev);
     }
-
-  const handleDeleteSuccess = () => {
-    setRefreshTrigger(prev => !prev);
-
   };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    const options = {day: 'numeric', month: 'short'};
-    return date.toLocaleDateString('en-GB', options)
-  }
+    const options = { day: 'numeric', month: 'short' };
+    return date.toLocaleDateString('en-GB', options);
+  };
 
- return (
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const futureAppointments = appointments
+    .filter(appointment => {
+      const appointmentDate = new Date(appointment.fecha);
+      return appointmentDate >= today;
+    })
+    .sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+
+  return (
     <div className="vh-100 d-flex flex-column position-relative">
       <Header />
       <div className="p-3 pt-0 ms-1 flex-grow-1 overflow-auto">

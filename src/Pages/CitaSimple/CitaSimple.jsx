@@ -126,11 +126,7 @@ const CitaSimple = () => {
     // Navegar a la página de confirmación y pasar la cita
     navigate('/confirmacion', { state: { cita } });
 
-      nombreMedico: selectedMedico.nombre || 'General',
-      fecha: combinedDateTime.toISOString(),
-      especialidad: appointmentState.especialidad,
-    };
-
+  
     handleSubmit(cita);
     console.log("Datos de la cita:", cita);
 
