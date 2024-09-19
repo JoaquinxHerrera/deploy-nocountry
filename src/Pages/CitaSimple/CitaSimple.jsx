@@ -126,7 +126,7 @@ const CitaSimple = () => {
     // Navegar a la página de confirmación y pasar la cita
     navigate('/confirmacion', { state: { cita } });
 
-  
+
     handleSubmit(cita);
     console.log("Datos de la cita:", cita);
 
