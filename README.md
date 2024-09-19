@@ -1,3 +1,8 @@
+![logo-completo](https://github.com/user-attachments/assets/6e16d323-572d-4bcb-85fe-d8b9e07c0c71)
+
+
+
+
 #  Salud Vital
 
 Nuestra aplicación, Salud Vital, está diseñada para resolver un problema clave: optimizar el tiempo de los pacientes en clínicas. Al permitir que los usuarios gestionen sus citas desde sus hogares, reducimos la necesidad de acudir físicamente a la clínica, liberando tiempo y recursos.
