@@ -13,3 +13,11 @@ Nuestra aplicación, Salud Vital, está diseñada para resolver un problema clav
 Con Salud Vital, los pacientes pueden crear sus citas, organisarse mejor y acceder a sus recetas desde la comodidad de sus hogares. Esto no solo aumenta la eficiencia, sino que también incrementa la probabilidad de atraer más pacientes, ya que facilita la gestión de turnos y reduce la necesidad de trámites presenciales. Además, en un futuro, planeamos incorporar funcionalidades para optimizar la gestión del personal administrativo. Innovamos para hacer la salud más accesible, cómoda y práctica para todos.
 
 [Tablero Ágil](https://javierismasanchez.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog  "Tablero Ágil")
+
+Equipo:
+                            Joaquin Herrera (FrontEnd)
+                            Kelly Saldaña (FrontEnd)
+                            Juan Pablo Rovelli (BackEnd)
+                            Cristian Sigel (BackEnd)
+                            Javier Porcel (QA)
+
