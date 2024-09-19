@@ -17,6 +17,7 @@ const CitaSimple = () => {
   const [selectedTime, setSelectedTime] = useState('');
   const [excludedDates, setExcludedDates] = useState([]);
   const [filteredMedicos, setFilteredMedicos] = useState([]);
+  const [isDatePickerEnabled, setIsDatePickerEnabled] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,11 +47,17 @@ const CitaSimple = () => {
       setFilteredMedicos(medicosFiltrados);
     }else{
       setFilteredMedicos([]);
-      setSelectedDate(null);
-      setSelectedTime('')
     }
-    setSelectedDate(null);
-    setSelectedTime('')
+
+    if(!appointmentState.idMedico || appointmentState.idMedico === 'Seleccionar Doctor'){
+      setSelectedDate(null);
+      setSelectedTime('');
+      setIsDatePickerEnabled(false);
+    }else{
+      setIsDatePickerEnabled(true);
+    }
+    
+    
   }, [appointmentState.especialidad, appointmentState.idMedico ,medicos])
 
   const handleSubmitClick = () => {
@@ -126,7 +133,7 @@ const CitaSimple = () => {
 
               <Form.Group className='mb-2' controlId="formDoctor">
                 <Form.Label>Doctor</Form.Label>
-                <Form.Control as="select" name="idMedico" value={appointmentState.idMedico} onChange={handleChange}>
+                <Form.Control as="select" name="idMedico" value={appointmentState.idMedico} onChange={handleChange} disabled={!appointmentState.especialidad || appointmentState.especialidad === 'Seleccionar Especialidad'}>
                   <option>Seleccionar Doctor</option>
                   {filteredMedicos.map((medico) => (
                     <option key={medico.id} value={medico.id}>{medico.nombre}</option>
@@ -145,7 +152,7 @@ const CitaSimple = () => {
                   excludeDates={excludedDates}
                   filterDate={(date) => date.getDay() !==0}
                   minDate={new Date(new Date().setDate(new Date().getDate() + 1)) }
-                  disabled={!appointmentState.idMedico}
+                  disabled={!isDatePickerEnabled}
                 />
                 {errors.fecha && <div className="text-danger">{errors.fecha}</div>}
               </Form.Group>
