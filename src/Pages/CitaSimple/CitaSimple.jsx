@@ -100,9 +100,32 @@ const CitaSimple = () => {
 
     const selectedMedico = medicos.find(medico => medico.id === parseInt(appointmentState.idMedico));
 
+ /*    const [hours, minutes] = selectedTime.split(':'); */
+    const appointmentDate = new Date(selectedDate);
+    appointmentDate.setHours(parseInt(hours, 10));
+    appointmentDate.setMinutes(parseInt(minutes, 10));
+    
+
+
+
     const cita = {
       idPaciente: 1,
       idMedico: parseInt(appointmentState.idMedico),
+
+    
+      nombreMedico: selectedMedico?.nombre || 'General', // Este es correcto
+      fechaInicio: appointmentDate.toISOString(), // Cambia uno de los "fecha" a "fechaInicio"
+    
+      // Cambia "nombreMedico" o elimina si ya lo definiste arriba
+      medicoSeleccionado: selectedMedico?.nombre || 'General', // Cambia "nombreMedico" por "medicoSeleccionado"
+      fechaCita: combinedDateTime.toISOString(), // Cambia el segundo "fecha" por "fechaCita"
+      especialidad: appointmentState.especialidad,
+    };
+    
+    
+    // Navegar a la página de confirmación y pasar la cita
+    navigate('/confirmacion', { state: { cita } });
+
       nombreMedico: selectedMedico.nombre || 'General',
       fecha: combinedDateTime.toISOString(),
       especialidad: appointmentState.especialidad,
@@ -110,6 +133,7 @@ const CitaSimple = () => {
 
     handleSubmit(cita);
     console.log("Datos de la cita:", cita);
+
   };
 
   return (
