@@ -17,6 +17,7 @@ const CitaSimple = () => {
   const [selectedTime, setSelectedTime] = useState('');
   const [excludedDates, setExcludedDates] = useState([]);
   const [filteredMedicos, setFilteredMedicos] = useState([]);
+  const [isDatePickerEnabled, setIsDatePickerEnabled] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,27 +41,35 @@ const CitaSimple = () => {
     }
   }, [selectedDate]);
 
-  useEffect(() => {
-    if (appointmentState.especialidad) {
+  useEffect(()=>{
+    if(appointmentState.especialidad){
       const medicosFiltrados = medicos.filter(medico => medico.especialidad === appointmentState.especialidad);
       setFilteredMedicos(medicosFiltrados);
-    } else {
+    }else{
       setFilteredMedicos([]);
     }
-  }, [appointmentState.especialidad, medicos]);
+
+    if(!appointmentState.idMedico || appointmentState.idMedico === 'Seleccionar Doctor'){
+      setSelectedDate(null);
+      setSelectedTime('');
+      setIsDatePickerEnabled(false);
+    }else{
+      setIsDatePickerEnabled(true);
+    }
+    
+    
+  }, [appointmentState.especialidad, appointmentState.idMedico ,medicos])
 
   const handleSubmitClick = () => {
-    if (!appointmentState.especialidad || !appointmentState.idMedico || !selectedDate || !selectedTime) {
+    if (!appointmentState.especialidad) {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Por favor, completa todos los campos antes de confirmar.",
+        text: "Por favor, selecciona una especialidad.",
         timer: 3000,
       });
       return;
     }
-
-    
 
     if (!appointmentState.idMedico) {
       Swal.fire({
@@ -87,18 +96,22 @@ const CitaSimple = () => {
 
     const [hours, minutes] = selectedTime.split(':').map(Number);
 
-    const combinedDateTime = new Date(year, month, day, hours, minutes);
-
+    const combinedDateTime = new Date(Date.UTC(year, month, day, hours, minutes));
 
     const selectedMedico = medicos.find(medico => medico.id === parseInt(appointmentState.idMedico));
+
  /*    const [hours, minutes] = selectedTime.split(':'); */
     const appointmentDate = new Date(selectedDate);
     appointmentDate.setHours(parseInt(hours, 10));
     appointmentDate.setMinutes(parseInt(minutes, 10));
     
+
+
+
     const cita = {
-      idPaciente: 1, // Asegúrate de tener un ID válido aquí
+      idPaciente: 1,
       idMedico: parseInt(appointmentState.idMedico),
+
     
       nombreMedico: selectedMedico?.nombre || 'General', // Este es correcto
       fechaInicio: appointmentDate.toISOString(), // Cambia uno de los "fecha" a "fechaInicio"
@@ -112,9 +125,16 @@ const CitaSimple = () => {
     
     // Navegar a la página de confirmación y pasar la cita
     navigate('/confirmacion', { state: { cita } });
+
+      nombreMedico: selectedMedico.nombre || 'General',
+      fecha: combinedDateTime.toISOString(),
+      especialidad: appointmentState.especialidad,
+    };
+
+    handleSubmit(cita);
+    console.log("Datos de la cita:", cita);
+
   };
-  
-  
 
   return (
     <div className="vh-100 justify-content-between d-flex flex-column ">
@@ -137,7 +157,7 @@ const CitaSimple = () => {
 
               <Form.Group className='mb-2' controlId="formDoctor">
                 <Form.Label>Doctor</Form.Label>
-                <Form.Control as="select" name="idMedico" value={appointmentState.idMedico} onChange={handleChange}>
+                <Form.Control as="select" name="idMedico" value={appointmentState.idMedico} onChange={handleChange} disabled={!appointmentState.especialidad || appointmentState.especialidad === 'Seleccionar Especialidad'}>
                   <option>Seleccionar Doctor</option>
                   {filteredMedicos.map((medico) => (
                     <option key={medico.id} value={medico.id}>{medico.nombre}</option>
@@ -156,13 +176,14 @@ const CitaSimple = () => {
                   excludeDates={excludedDates}
                   filterDate={(date) => date.getDay() !==0}
                   minDate={new Date(new Date().setDate(new Date().getDate() + 1)) }
+                  disabled={!isDatePickerEnabled}
                 />
                 {errors.fecha && <div className="text-danger">{errors.fecha}</div>}
               </Form.Group>
 
               <Form.Group className='mb-2' controlId="formTime">
                 <Form.Label>Hora</Form.Label>
-                <Form.Control as="select" value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}>
+                <Form.Control as="select" value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)} disabled={!selectedDate}>
                   <option>Seleccionar Hora</option>
                   {availableTimes.map((time, index) => (
                     <option key={index} value={time}>{time}</option>

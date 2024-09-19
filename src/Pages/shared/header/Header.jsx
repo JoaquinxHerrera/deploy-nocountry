@@ -30,10 +30,12 @@ const Header = () => {
         <Navbar key={expand} expand={expand} className="pb-0">
           <Container fluid>
             {isHomePage ? (
-            <div className='d-flex justify-content-center align-items-center mb-0 pb-0'>
-              <img src={Hand} alt="Mano saludando en header" className='me-2 mb-2 headerHand'/>
-              <p className='header mb-0 '>Hola {paciente?.nombre}!</p>
-            </div>
+              paciente && (
+                <div className='d-flex justify-content-center align-items-center mb-0 pb-0'>
+                  <img src={Hand} alt="Mano saludando en header" className='me-2 mb-2 headerHand'/>
+                  <p className='header mb-0 '>Hola {paciente.nombre}!</p>
+                </div>
+              )
             ) : (
               <NavLink to='/home'>
                 <FaArrowLeft size={30} color='#432C81'/>
