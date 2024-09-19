@@ -14,9 +14,9 @@ Con Salud Vital, los pacientes pueden crear sus citas, organisarse mejor y acced
 [Tablero Ágil](https://javierismasanchez.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog  "Tablero Ágil")
 
 Equipo:
-                           Joaquin Herrera (FrontEnd)
-                            Kelly Saldaña (FrontEnd)
-                            Juan Pablo Rovelli (BackEnd)
-                            Cristian Sigel (BackEnd)
+                           Joaquin Herrera (FrontEnd),
+                            Kelly Saldaña (FrontEnd),
+                            Juan Pablo Rovelli (BackEnd),
+                            Cristian Sigel (BackEnd) y
                             Javier Porcel (QA)
 
