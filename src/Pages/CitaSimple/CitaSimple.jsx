@@ -8,7 +8,7 @@ import useCreateAppointment from '../../hooks/useCreateAppointment';
 import Swal from 'sweetalert2';
 import { fetchAppointments } from '../../api/fetchAppointment';
 import Header from '../shared/header/Header';
-import './CitaSimpleStyles.css';
+import './CitaSimpleStyles.css'
 
 const CitaSimple = () => {
   const { appointmentState, medicos, especialidades, errors, handleChange, handleSubmit } = useCreateAppointment();
@@ -41,22 +41,24 @@ const CitaSimple = () => {
     }
   }, [selectedDate]);
 
-  useEffect(() => {
-    if (appointmentState.especialidad) {
+  useEffect(()=>{
+    if(appointmentState.especialidad){
       const medicosFiltrados = medicos.filter(medico => medico.especialidad === appointmentState.especialidad);
       setFilteredMedicos(medicosFiltrados);
-    } else {
+    }else{
       setFilteredMedicos([]);
     }
 
-    if (!appointmentState.idMedico || appointmentState.idMedico === 'Seleccionar Doctor') {
+    if(!appointmentState.idMedico || appointmentState.idMedico === 'Seleccionar Doctor'){
       setSelectedDate(null);
       setSelectedTime('');
       setIsDatePickerEnabled(false);
-    } else {
+    }else{
       setIsDatePickerEnabled(true);
     }
-  }, [appointmentState.especialidad, appointmentState.idMedico, medicos]);
+    
+    
+  }, [appointmentState.especialidad, appointmentState.idMedico ,medicos])
 
   const handleSubmitClick = () => {
     if (!appointmentState.especialidad) {
@@ -91,30 +93,48 @@ const CitaSimple = () => {
     const year = selectedDate.getFullYear();
     const month = selectedDate.getMonth();
     const day = selectedDate.getDate();
+
     const [hours, minutes] = selectedTime.split(':').map(Number);
 
-    const combinedDateTime = new Date(year, month, day, hours, minutes);
+    const combinedDateTime = new Date(Date.UTC(year, month, day, hours, minutes));
 
     const selectedMedico = medicos.find(medico => medico.id === parseInt(appointmentState.idMedico));
+
+ /*    const [hours, minutes] = selectedTime.split(':'); */
+    const appointmentDate = new Date(selectedDate);
+    appointmentDate.setHours(parseInt(hours, 10));
+    appointmentDate.setMinutes(parseInt(minutes, 10));
+    
+
+
 
     const cita = {
       idPaciente: 1,
       idMedico: parseInt(appointmentState.idMedico),
-      nombreMedico: selectedMedico?.nombre || 'General',
-      fecha: combinedDateTime.toISOString(), // Usar esta fecha para la cita
+
+    
+      nombreMedico: selectedMedico?.nombre || 'General', // Este es correcto
+      fechaInicio: appointmentDate.toISOString(), // Cambia uno de los "fecha" a "fechaInicio"
+    
+      // Cambia "nombreMedico" o elimina si ya lo definiste arriba
+      medicoSeleccionado: selectedMedico?.nombre || 'General', // Cambia "nombreMedico" por "medicoSeleccionado"
+      fechaCita: combinedDateTime.toISOString(), // Cambia el segundo "fecha" por "fechaCita"
       especialidad: appointmentState.especialidad,
     };
-
+    
+    
     // Navegar a la página de confirmación y pasar la cita
     navigate('/confirmacion', { state: { cita } });
 
+
     handleSubmit(cita);
     console.log("Datos de la cita:", cita);
+
   };
 
   return (
     <div className="vh-100 justify-content-between d-flex flex-column ">
-      <Header />
+      <Header/>
       <Container className="d-flex justify-content-center">
         <Row className="w-100 ">
           <Col xs={12} md={8} lg={6} className="p-4">
@@ -150,8 +170,8 @@ const CitaSimple = () => {
                   dateFormat="dd/MM/yyyy"
                   className="form-control datePicker"
                   excludeDates={excludedDates}
-                  filterDate={(date) => date.getDay() !== 0}
-                  minDate={new Date(new Date().setDate(new Date().getDate() + 1))}
+                  filterDate={(date) => date.getDay() !==0}
+                  minDate={new Date(new Date().setDate(new Date().getDate() + 1)) }
                   disabled={!isDatePickerEnabled}
                 />
                 {errors.fecha && <div className="text-danger">{errors.fecha}</div>}
