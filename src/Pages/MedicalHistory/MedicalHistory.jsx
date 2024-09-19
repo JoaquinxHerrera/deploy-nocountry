@@ -43,15 +43,9 @@ const MedicalHistory = () => {
             <p>Error al cargar las citas: {error}</p>
             ) : (
               <>
-                {!loading && appointments.length === 0 ? (
-                  <div className="text-center">
-                    <img src={homeImg} alt="No tienes ninguna cita" className=''/>
-                    <p className='noDatesText1 mb-0'>No Tienes Ninguna Cita</p>
-                    <p className='noDatesText2'>Haga click en el botón para agregar cita</p>
-                    <img src={HomeBtnLines} alt="Flecha señalando boton de agregar consulta" className='HomeBtnLines'/>
-                    <NavLink to='/consulta/:pacienteId'>
-                      <img src={addDate} alt="Boton para agregar consulta" className='HomeBtnPosition'/>
-                    </NavLink>
+                {!loading && pastAppointments.length === 0 ? (
+                  <div className="text-center ">
+                    <p className='noDatesText1 mb-0'>No Tienes Ninguna Cita En Historial</p>
                   </div> 
                 ) : (
                   <>

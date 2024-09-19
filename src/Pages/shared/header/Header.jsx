@@ -24,6 +24,8 @@ const Header = () => {
     setIsMenuOpen(false);
   }
 
+  const firstName = paciente?.nombre.split(' ')[0] || 'General';
+
   return (
        <>
       {[false].map((expand) => (
@@ -33,7 +35,7 @@ const Header = () => {
               paciente && (
                 <div className='d-flex justify-content-center align-items-center mb-0 pb-0'>
                   <img src={Hand} alt="Mano saludando en header" className='me-2 mb-2 headerHand'/>
-                  <p className='header mb-0 '>Hola {paciente.nombre}!</p>
+                  <p className='header mb-0 '>Hola {firstName}!</p>
                 </div>
               )
             ) : (
