@@ -61,7 +61,7 @@ const Header = () => {
                 <Nav className="text-center mt-5 gap-2">
                   <Nav.Link href="/profile/:idPaciente" className="fs-4">Mi perfil</Nav.Link>
                   <Nav.Link href="/configuracion" className="fs-4">Configuracion</Nav.Link>
-                  <LogoutButton/>
+                  <LogoutButton className="logoutButton" />
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>
