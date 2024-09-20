@@ -15,8 +15,9 @@ const useDeleteAppointment = () => {
             setSuccess('Consulta eliminada con éxito');
             return result;
         } catch(err){
-            setError('Error al eliminar la consulta');
+            setError(err);
             console.error('Error detallado:', err.response ? err.response.data : err.message);
+            throw err;
         } finally{
             setLoading(false);
         }

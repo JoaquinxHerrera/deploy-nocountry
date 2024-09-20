@@ -93,7 +93,7 @@ const CitaSimple = () => {
     const day = selectedDate.getDate();
     const [hours, minutes] = selectedTime.split(':').map(Number);
 
-    const combinedDateTime = new Date(year, month, day, hours, minutes);
+    const combinedDateTime = new Date(Date.UTC(year, month, day, hours, minutes));
 
     const selectedMedico = medicos.find(medico => medico.id === parseInt(appointmentState.idMedico));
 
@@ -113,13 +113,13 @@ const CitaSimple = () => {
   };
 
   return (
-    <div className="vh-100 justify-content-between d-flex flex-column ">
+    <div className="vh-100 d-flex flex-column justify-content-between">
       <Header />
       <Container className="d-flex justify-content-center">
         <Row className="w-100 ">
           <Col xs={12} md={8} lg={6} className="p-4">
-            <h2 className="text-center mb-4 detalles">Detalles de Cita</h2>
-            <Form className='mb-5' onSubmit={(e) => e.preventDefault()}>
+            <h2 className="text-center  detalles">Detalles de Cita</h2>
+            <Form className='' onSubmit={(e) => e.preventDefault()}>
               <Form.Group className='mb-2' controlId="formSpecialty">
                 <Form.Label>Especialidad</Form.Label>
                 <Form.Control as="select" name="especialidad" value={appointmentState.especialidad} onChange={handleChange}>
@@ -168,10 +168,10 @@ const CitaSimple = () => {
               </Form.Group>
 
               <div className="d-flex justify-content-between mt-4">
-                <Button variant="primary" className="btn-cancel">
+                <Button className="btn-cancel">
                   <NavLink className='text-white' to='/home'>Cancelación</NavLink>
                 </Button>
-                <Button variant="primary" className="btn-confirm" onClick={handleSubmitClick}>
+                <Button className="btn-confirm" onClick={handleSubmitClick}>
                   Confirmar Cita
                 </Button>
               </div>

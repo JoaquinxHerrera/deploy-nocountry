@@ -37,6 +37,8 @@ const Confirmacion = () => {
     }
   };
   
+  const formattedDate = new Date(cita?.fecha).toISOString().split('T')[0];
+  const formattedTime = cita?.fecha ? cita.fecha.slice(11, 16) : '';
 
   return (
     <div className="full-screen-container d-flex flex-column">
@@ -49,22 +51,21 @@ const Confirmacion = () => {
             <b><u>Resumen de la cita</u></b>
             <Row>
               <span><b>Especialidad:</b> {cita?.especialidad}</span>
-              <span><b>Fecha:</b> {new Date(cita?.fecha).toLocaleDateString()}</span>
-              <span><b>Hora:</b> {new Date(cita?.fecha).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+              <span><b>Fecha:</b> {formattedDate}</span>
+              <span><b>Hora:</b> {formattedTime}</span>
               <span><b>Doctor:</b> Dr. {cita?.nombreMedico}</span>
             </Row>
           </Row>
-          <Row className="confirmacion-row">
-            <Button
-              variant="light"
-              className="confirmacion-button"
+          {/* <Row className="confirmacion-row">
+            <Button 
+              className="btn-cancel text-white" 
               style={{ marginBottom: 0 }}
               onClick={handleDeleteClick}
               disabled={loading}
             >
               <FaArchive /> Cancelar Cita
             </Button>
-          </Row>
+          </Row> */}
           {error && <div className="text-danger">{error}</div>}
           {success && <div className="text-success">{success}</div>}
           <p>Gracias por preferirnos</p>
